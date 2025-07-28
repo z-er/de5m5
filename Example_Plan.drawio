@@ -41,7 +41,7 @@
         <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-8" value="Pull CSV from SFTP location at 05:00 UTC" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="200" y="440" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-12" value="Archive the CSV (backdating x days), Decrypt." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-12" value="Decrypt, Validate, Archive" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="200" y="560" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-14" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="Zg_yZ-KcbtZBnX7tjjq3-16">
@@ -92,7 +92,7 @@
             <mxPoint x="560" y="320" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-26" value="Loading" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-90;" vertex="1" connectable="0" parent="Zg_yZ-KcbtZBnX7tjjq3-25">
+        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-26" value="Loading (Bronze)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-90;" vertex="1" connectable="0" parent="Zg_yZ-KcbtZBnX7tjjq3-25">
           <mxGeometry x="-0.0529" y="-2" relative="1" as="geometry">
             <mxPoint x="-8" y="3" as="offset" />
           </mxGeometry>
@@ -100,7 +100,7 @@
         <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Zg_yZ-KcbtZBnX7tjjq3-27" target="Zg_yZ-KcbtZBnX7tjjq3-30">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-27" value="Perform an upsert on the data produced." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-27" value="Perform an upsert on the data produced. (Bronze)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
           <mxGeometry x="520" y="320" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-28" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Zg_yZ-KcbtZBnX7tjjq3-23" target="Zg_yZ-KcbtZBnX7tjjq3-27">
@@ -121,45 +121,6 @@
         </mxCell>
         <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-30" value="Log appropriately." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="520" y="440" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-32" value="Analytics Team" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="680" y="240" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-35" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zg_yZ-KcbtZBnX7tjjq3-30" target="Zg_yZ-KcbtZBnX7tjjq3-32">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="620" y="470" as="sourcePoint" />
-            <mxPoint x="670" y="420" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="560" y="560" />
-              <mxPoint x="640" y="560" />
-              <mxPoint x="640" y="280" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-36" value="Notify" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-90;" vertex="1" connectable="0" parent="Zg_yZ-KcbtZBnX7tjjq3-35">
-          <mxGeometry x="0.0796" y="3" relative="1" as="geometry">
-            <mxPoint x="-7" y="-26" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-37" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Zg_yZ-KcbtZBnX7tjjq3-32">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="650" y="500" as="sourcePoint" />
-            <mxPoint x="920" y="280" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-38" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="Zg_yZ-KcbtZBnX7tjjq3-40">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="839.58" y="280" as="sourcePoint" />
-            <mxPoint x="839.58" y="400" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-39" value="Produces" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-90;" vertex="1" connectable="0" parent="Zg_yZ-KcbtZBnX7tjjq3-38">
-          <mxGeometry x="0.1222" y="-3" relative="1" as="geometry">
-            <mxPoint x="-10" y="-7" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Zg_yZ-KcbtZBnX7tjjq3-40" value="Power BI report create/refresh" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="800" y="400" width="80" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
