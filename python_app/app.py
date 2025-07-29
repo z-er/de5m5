@@ -95,23 +95,28 @@ def push_to_SQL(df, name):
     print(f'{name} pushed to SQL.')
 
 def push_to_azure_SQL(df, name):
+    access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkpZaEFjVFBNWl9MWDZEQmxPV1E3SG4wTmVYRSIsImtpZCI6IkpZaEFjVFBNWl9MWDZEQmxPV1E3SG4wTmVYRSJ9.eyJhdWQiOiJodHRwczovL2RhdGFiYXNlLndpbmRvd3MubmV0LyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzA2YjliNzk4LTIxMDYtNDhlOS05MTFlLWY5YzA1OWEwNDk1MS8iLCJpYXQiOjE3NTM3ODcwMDEsIm5iZiI6MTc1Mzc4NzAwMSwiZXhwIjoxNzUzNzkyNTM1LCJhY3IiOiIxIiwiYWlvIjoiQVhRQWkvOFpBQUFBZTI3T1BHaXJrQUZzWEgxeG50elBwMzhCcXBtaHV6TVVVamdPZll3RkxnOW5OSzJZYkR2ZDVJS2lWZGliT3gyUmtKek1QcStiKzRwV0JxRDUrMUtzODRQOGVCeWtVLzVHNDBVR3lKTWNEVnlWUytBbGlPaTdlVElXS1dRSXhRYXBjaTFkVkFiN1EybGZ2dDN6UUtoc0dnPT0iLCJhbHRzZWNpZCI6IjE6bGl2ZS5jb206MDAwNjQwMDBCQjgwOTVFMiIsImFtciI6WyJwd2QiXSwiYXBwaWQiOiIwNGIwNzc5NS04ZGRiLTQ2MWEtYmJlZS0wMmY5ZTFiZjdiNDYiLCJhcHBpZGFjciI6IjAiLCJlbWFpbCI6ImplZWtmb2c3QG91dGxvb2suY29tIiwiZmFtaWx5X25hbWUiOiJTcGllcnMiLCJnaXZlbl9uYW1lIjoiSm9zaHVhIiwiZ3JvdXBzIjpbImU0NjA3OTlkLTQ2YTUtNDAyMS05ZTJiLTEzZTVhY2RjMzBkYSJdLCJpZHAiOiJsaXZlLmNvbSIsImlkdHlwIjoidXNlciIsImlwYWRkciI6IjkyLjIzOC4xNTQuMTU2IiwibmFtZSI6Ikpvc2h1YSBTcGllcnMiLCJvaWQiOiIzZWFmZGEwOS1mNTc5LTRlNDktODcwMC1hOGNkMTU1ODY1YzciLCJwdWlkIjoiMTAwMzIwMDRGMEUxM0E5MiIsInJoIjoiMS5BUk1CbUxlNUJnWWg2VWlSSHZuQVdhQkpVZE1IS1FJYkRfZEl1dHdicHF1cmJXWTZBWjhUQVEuIiwic2NwIjoidXNlcl9pbXBlcnNvbmF0aW9uIiwic2lkIjoiMDA2ZjQ0NzktZjc0NS1lYzUwLTQyMzAtNTVlNWZmYzYyMmViIiwic3ViIjoiVFNmd3RSRzZwOVpNcEdJYUp0N0FHZE5wakMxWGpDOGRsLWxiN25IZlZVRSIsInRpZCI6IjA2YjliNzk4LTIxMDYtNDhlOS05MTFlLWY5YzA1OWEwNDk1MSIsInVuaXF1ZV9uYW1lIjoibGl2ZS5jb20jamVla2ZvZzdAb3V0bG9vay5jb20iLCJ1dGkiOiJDTVVMN2ZhV3RVV1V1ZGZoTmhBaEFBIiwidmVyIjoiMS4wIiwieG1zX2Z0ZCI6ImxRdV9RVEpmRFRobnBSTXVwUnc3QW5mVTJSQ1dsZzRpNmlWQ0lqaEw1RFlCWlhWeWIzQmxibTl5ZEdndFpITnRjdyIsInhtc19pZHJlbCI6IjEgMTIifQ.NAHg9vTsS5tCwFmzZQv1l4YpNQR8GjT1KBADKkqfDPA1MhQidonYH-cVGNaYOJ_BnmPUV8feZeEfYiWFFrn-UTXAfirGBHM3shXiMqIS5p75bt7mVCTmWRME8HehWhCkuUaM3hBlJAaUrrPPf3RKUJPs17IYIJuFQXOFjfcUh_opaON6n2Rs_TWMeVlLWSfEa6Z4bnyNZNkNBNeHU9uePBBojZciKB_FWIFj0v5treowcIUrCeMSvWWAlY4WwkJ12095eBjKgjZXkcWzUCibw352DmvEoOCT2vNDQOXHty1tMGG--mhzYiGCoyrBpHlPVTBPwLd2sLetzTP_wsi0Vg"
     server = 'jjs-qa-testdb.database.windows.net'
-    driver = 'ODBC Driver 18 for SQL Server'
+    driver = '{ODBC Driver 18 for SQL Server}'
     database = 'db-qa-test'
 
+    token_bytes = bytes(access_token, "utf-16-le")
+
     conn_str = (
-        f"mssql+pyodbc:///?odbc_connect=Driver={driver};"
+        f"Driver={driver};"
         f"Server=tcp:{server},1433;Database={database};"
         f"Encrypt=yes;TrustServerCertificate=no;"
-        f"Connection Timeout=30;Authentication=ActiveDirectoryInteractive"
+        f"Connection Timeout=30"
     )
-    engine = create_engine(conn_str)
+    engine = pyodbc.connect(conn_str, attrs_before={1256: token_bytes})
     df.to_sql(name=f'{name}', con=engine, if_exists='replace', index=False)
 
 if __name__ == '__main__':
     # 'python_app\\data\\03_Library Systembook.csv'
     # 'python_app\\data\\03_Library SystemCustomers.csv'
     # Run with: 'python_app\\data\\03_Library Systembook.csv' 'python_app\\data\\03_Library SystemCustomers.csv' -p   
+
+    print(pyodbc.drivers())
 
     # Extraction
     df_systembook = systembook_processing(ingest_csv_file(args.sysbpath))
