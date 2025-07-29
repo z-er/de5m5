@@ -1,5 +1,18 @@
 import pandas as pd
 import numpy as np
+import argparse as ap
+
+parser = ap.ArgumentParser(
+    prog='DataProcessorJS',
+    description='This program processes the library system CSV files and pushes an aggregated table to SQL.'
+)
+
+parser.add_argument('sysbpath', help='path to systembook csv')
+parser.add_argument('syscpath', help='path to systemcustomers csv')
+parser.add_argument('-sql', action='store_true', help='flag for pushing to SQL')
+parser.add_argument('-tn', '--table-name', help='name of the resultant SQL table')
+parser.add_argument('-p', action='store_true', help='flag for printing output of aggregated table')
+args = parser.parse_args()
 
 def ingest_csv_file(file_path):
     try:
@@ -82,13 +95,24 @@ def push_to_SQL(df, name):
     print(f'{name} pushed to SQL.')
 
 if __name__ == '__main__':
+    # 'python_app\\data\\03_Library Systembook.csv'
+    # 'python_app\\data\\03_Library SystemCustomers.csv'
+    # Run with: 'python_app\\data\\03_Library Systembook.csv' 'python_app\\data\\03_Library SystemCustomers.csv' -p   
+
     # Extraction
-    df_systembook = systembook_processing(ingest_csv_file('python_app\\data\\03_Library Systembook.csv'))
-    df_system_customers = system_customers_processing(ingest_csv_file('python_app\\data\\03_Library SystemCustomers.csv'))
+    df_systembook = systembook_processing(ingest_csv_file(args.sysbpath))
+    df_system_customers = system_customers_processing(ingest_csv_file(args.syscpath))
 
     # Transformation
     df_aggregated = pd.merge(df_systembook, df_system_customers, on='Customer ID', how='left')
     df_aggregated['Customer Name'] = fill_na_with_custom(df_aggregated['Customer Name'], 'Unknown Customer')
 
+    if args.p:
+        print(df_aggregated.head(10))
+
     # Loading
-    push_to_SQL(df_aggregated, 'library_records')
+    if args.sql:
+        if args.table_name is None:
+            push_to_SQL(df_aggregated, 'library_records')
+        else:
+            push_to_SQL(df_aggregated, f'{args.table_name}')
