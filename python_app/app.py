@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
     # Transformation
     df_aggregated = pd.merge(df_systembook, df_system_customers, on='Customer ID', how='left')
-    df_aggregated['Customer Name'] = fill_na_with_custom(df_aggregated['Customer Name'])
+    df_aggregated['Customer Name'] = fill_na_with_custom(df_aggregated['Customer Name'], 'Unknown Customer')
 
     # Loading
     push_to_SQL(df_aggregated, 'library_records')
