@@ -41,4 +41,4 @@ if __name__ == '__main__':
     df_systemcustomers = dp.system_customers_processing(dp.ingest_csv_file('python_app\\data\\03_Library SystemCustomers.csv'))
     df_final = dp.aggregate_processing(df_systembook, df_systemcustomers)
 
-    push_to_azure_SQL(df_final, 'library_kv_test')
+    push_to_azure_SQL(df_final, 'library-qa-demo')
