@@ -90,6 +90,11 @@ def system_customers_processing(df_system_customers):
     df_system_customers['Customer ID'] = convert_field_to_int(df_system_customers['Customer ID'])
     return df_system_customers
 
+def aggregate_processing(df1, df2):
+    df = pd.merge(df1, df2, on='Customer ID', how='left')
+    df['Customer Name'] = fill_na_with_custom(df['Customer Name'], 'Unknown Customer')
+    return df
+
 def push_to_SQL(df, name):
     # Connection String
     conn_str = (
