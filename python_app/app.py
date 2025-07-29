@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 import argparse as ap
+import pyodbc
+import sqlalchemy
+from sqlalchemy import create_engine
 
 parser = ap.ArgumentParser(
     prog='DataProcessorJS',
@@ -10,6 +13,7 @@ parser = ap.ArgumentParser(
 parser.add_argument('sysbpath', help='path to systembook csv')
 parser.add_argument('syscpath', help='path to systemcustomers csv')
 parser.add_argument('-sql', action='store_true', help='flag for pushing to SQL')
+parser.add_argument('-cl', '--cloud', action='store_true', help='flag for pushing to Azure SQL')
 parser.add_argument('-tn', '--table-name', help='name of the resultant SQL table')
 parser.add_argument('-p', action='store_true', help='flag for printing output of aggregated table')
 args = parser.parse_args()
@@ -79,11 +83,7 @@ def system_customers_processing(df_system_customers):
     df_system_customers['Customer ID'] = convert_field_to_int(df_system_customers['Customer ID'])
     return df_system_customers
 
-
 def push_to_SQL(df, name):
-    import sqlalchemy
-    from sqlalchemy import create_engine
-
     # Connection String
     conn_str = (
         "mssql+pyodbc://localhost/LibrarySystem"
@@ -93,6 +93,20 @@ def push_to_SQL(df, name):
     engine = create_engine(conn_str)
     df.to_sql(name=f'{name}', con=engine, if_exists='replace', index=False)
     print(f'{name} pushed to SQL.')
+
+def push_to_azure_SQL(df, name):
+    server = 'jjs-qa-testdb.database.windows.net'
+    driver = 'ODBC Driver 18 for SQL Server'
+    database = 'db-qa-test'
+
+    conn_str = (
+        f"mssql+pyodbc:///?odbc_connect=Driver={driver};"
+        f"Server=tcp:{server},1433;Database={database};"
+        f"Encrypt=yes;TrustServerCertificate=no;"
+        f"Connection Timeout=30;Authentication=ActiveDirectoryInteractive"
+    )
+    engine = create_engine(conn_str)
+    df.to_sql(name=f'{name}', con=engine, if_exists='replace', index=False)
 
 if __name__ == '__main__':
     # 'python_app\\data\\03_Library Systembook.csv'
@@ -116,3 +130,9 @@ if __name__ == '__main__':
             push_to_SQL(df_aggregated, 'library_records')
         else:
             push_to_SQL(df_aggregated, f'{args.table_name}')
+    
+    if args.cloud:
+        if args.table_name is None:
+            push_to_azure_SQL(df_aggregated, 'library_records')
+        else:
+            push_to_azure_SQL(df_aggregated, f'{args.table_name}')
