@@ -8,6 +8,7 @@ COPY . /app
 
 # Install dependencies
 RUN pip install -r requirements.txt
+RUN apt-get update
 
-# Upon start, run the command `python ./docker_demo.py`
-ENTRYPOINT [ "python", "./docker_demo.py" ]
+# Upon start, run the command `python ./data_reading.py`
+ENTRYPOINT [ "python", "data_reading.py"]

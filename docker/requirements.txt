@@ -1,1 +1,5 @@
 pandas
+numpy
+argparse
+pyodbc
+sqlalchemy
