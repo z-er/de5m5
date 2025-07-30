@@ -6,5 +6,8 @@ WORKDIR /app
 # Copy the current directory contents into the container's working directory
 COPY . /app
 
+# Install dependencies
+RUN pip install -r requirements.txt
+
 # Upon start, run the command `python ./docker_demo.py`
 ENTRYPOINT [ "python", "./docker_demo.py" ]
